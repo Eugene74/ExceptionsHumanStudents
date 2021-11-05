@@ -1,0 +1,102 @@
+/*
+Домашнее задание
+1. Создайте класс описывающий человека (создайте метод
+выводящий информацию о человеке)
+2. На его основе создайте класс студент (переопределите
+метод вывода информации)
+3. Создайте класс группа — который содержит массив из 10
+объектов класса студент. Реализуйте методы добавления
+студента и метод поиска студента по фамилии. В случае
+попытки добавления 11 студента создайте собственное
+исключение и обработайте его.
+4. * Нарисуйте UML диаграмму проекта
+
+Задание для самостоятельной проработки.
+Основной уровень.
+1) Дополните реализацию группы Студентов (задание прошлой лекции) возможностью сортировки
+массива студентов по фамилии. Для этого в класс Группа добавьте метод
+sortStudentsByLastName().
+2)Создайте отдельный класс который реализует считывание характеристик студента с клавиатуры
+(имя, фамилии и т. д.). Создание и возврат студента на основе считанных данных. Используете
+методы этого класса для считывания и добавления студента в группу.
+
+Задание для самостоятельной проработки.
+Продвинутый уровень.
+1) Объявите интерфейс
+public interface CSVConverter{
+public String toCSVString();
+public Student fromCSVString (String str);
+}
+Класс Студент должен реализовывать этот интерфейс. Логика реализации следующая — на
+основе Студента создать строку с его CSV представлением и наоборот на основе этой строки
+создать Студента.
+* */
+
+import myexception.GroupLimitException;
+import myexception.NoExistStudentException;
+import people.Student;
+import utils.AddStudentYourself_fromKeyboard;
+import utils.Group_ofStudent;
+
+public class MyClass {
+
+	public static void main(String[] args) {
+        System.out.println("--------------------добавим в группу студентов----------------------------");
+		Group_ofStudent group = new Group_ofStudent(5);
+        try {
+            group.add(  new Student( "Kolya", "Saychuk", 1975 , 5 , 15    ) ) ;
+            group.add(  new Student( "Seva", "Evgienko", 1986 , 3 , 11    ) ) ;
+            group.add(  new Student( "Vasya", "Pupko", 1988 , 4 , 12    ) ) ;
+            group.add(  new Student( "Tolya", "Avko", 1989 , 5 , 13    ) ) ;
+            group.add(  new Student( "Olya", "Blavko", 1991 , 6 , 14    ) ) ;
+        } catch (GroupLimitException e) {
+            System.out.println("\u001B[31m"+ e.getMessage()+ "\u001B[0m");
+        }
+        System.out.println("---------------------найдём по фамилии или имени---------------------------");
+        Student student = null;
+        try {
+            student = group.find("Saychuk");
+            System.out.println( student.getName());
+            System.out.println(student.getCalendarBirth());
+            System.out.println(student.toString());
+        } catch (NoExistStudentException e) {
+            System.out.println("\u001B[31m"+ e.getMessage()+ "\u001B[0m");
+        }
+
+
+        try {
+            student = group.find("Seva");
+            System.out.println( student.getName());
+            System.out.println(student.getCalendarBirth());
+            System.out.println(student.toString());
+        } catch (NoExistStudentException e) {
+            System.out.println("\u001B[31m"+ e.getMessage()+ "\u001B[0m");
+        }
+        System.out.println("--------------------с клавиатуры добавим студента----------------------------");
+        AddStudentYourself_fromKeyboard keyboard = new AddStudentYourself_fromKeyboard(group);
+        String [] data = keyboard.addNewStudent();
+        try {
+            student = keyboard.getGroup().find(data[0]);
+            System.out.println( student.getName());
+            System.out.println(student.getCalendarBirth());
+            System.out.println(student.toString());
+        } catch (NoExistStudentException e) {
+            System.out.println("\u001B[31m"+ e.getMessage()+ "\u001B[0m");
+        }
+
+
+
+        System.out.println("--------------------отсортируем группу----------------------------");
+        Student[] listStudent=group.sortStudentsByLastName();
+        for (int i = 0; i < listStudent.length; i++) {
+            System.out.println(listStudent[i]);
+        }
+        System.out.println("---------------------загоним студента в CSV и достанем его из этого файла----------");
+        String csvStudent = student.toCSVString();
+        System.out.println(csvStudent);
+        Student fromCSVstudent = new Student().fromCSVString(csvStudent);
+        System.out.println(fromCSVstudent);
+
+
+    }
+}
