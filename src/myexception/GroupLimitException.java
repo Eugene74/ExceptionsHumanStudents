@@ -1,6 +1,6 @@
 package myexception;
 
-public class GroupLimitException extends Exception {
+public class GroupLimitException extends RuntimeException {
     public GroupLimitException(String message) {
         super(message);
     }

@@ -5,14 +5,14 @@ import people.Student;
 
 import java.util.Scanner;
 
-public class AddStudentYourself_fromKeyboard {
-    private Group_ofStudent group;
+public class AddStudentYourselfKeyboard {
+    private StudentsGroup group;
 
-    public AddStudentYourself_fromKeyboard(Group_ofStudent group) {
+    public AddStudentYourselfKeyboard(StudentsGroup group) {
         this.group = group;
     }
 
-    public String [] addNewStudent() {
+    public void addNewStudent() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter Name of Student");
         String name = scanner.nextLine();
@@ -28,10 +28,9 @@ public class AddStudentYourself_fromKeyboard {
             System.out.println(e.getMessage());
         }
         scanner.close();
-        return new String[]{name, surname};
     }
 
-    public Group_ofStudent getGroup() {
+    public StudentsGroup getGroup() {
         return group;
     }
 }

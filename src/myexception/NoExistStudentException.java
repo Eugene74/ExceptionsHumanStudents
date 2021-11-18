@@ -1,6 +1,6 @@
 package myexception;
 
-public class NoExistStudentException extends Throwable {
+public class NoExistStudentException extends RuntimeException {
     public NoExistStudentException(String message) {
         super(message);
     }
