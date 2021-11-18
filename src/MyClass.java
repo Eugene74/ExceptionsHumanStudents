@@ -40,16 +40,16 @@ import utils.StudentsGroup;
 
 public class MyClass {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         System.out.println("--------------------добавим в группу студентов----------------------------");
-		StudentsGroup group = new StudentsGroup(10);
+        StudentsGroup group = new StudentsGroup(10);
         try {
-            group.add(  new Student( "Kolya", "Saychuk", 1975 , 5 , 15    ) ) ;
-            group.add(  new Student( "Gena", "Saychuk", 1976 , 7 , 16    ) ) ;
-            group.add(  new Student( "Seva", "Evgienko", 1986 , 3 , 11    ) ) ;
-            group.add(  new Student( "Vasya", "Pupko", 1988 , 4 , 12    ) ) ;
-            group.add(  new Student( "Tolya", "Avko", 1989 , 5 , 13    ) ) ;
-            group.add(  new Student( "Olya", "Blavko", 1991 , 6 , 14    ) ) ;
+            group.add(new Student("Kolya", "Saychuk", 1975, 5, 15));
+            group.add(new Student("Gena", "Saychuk", 1976, 7, 16));
+            group.add(new Student("Seva", "Evgienko", 1986, 3, 11));
+            group.add(new Student("Vasya", "Pupko", 1988, 4, 12));
+            group.add(new Student("Tolya", "Avko", 1989, 5, 13));
+            group.add(new Student("Olya", "Blavko", 1991, 6, 14));
         } catch (GroupLimitException e) {
             System.out.println("\u001B[31m" + e.getMessage() + "\u001B[0m");
         }
@@ -57,42 +57,30 @@ public class MyClass {
         Student student = null;
         try {
             student = group.find("Saychuk");
-            System.out.println( student.getName());
+            System.out.println(student.getName());
             System.out.println(student.getCalendarBirth());
             System.out.println(student.toString());
         } catch (NoExistStudentException e) {
-            System.out.println("\u001B[31m"+ e.getMessage()+ "\u001B[0m");
+            System.out.println("\u001B[31m" + e.getMessage() + "\u001B[0m");
         }
-
-
         try {
             student = group.find("Seva");
-            System.out.println( student.getName());
+            System.out.println(student.getName());
             System.out.println(student.getCalendarBirth());
             System.out.println(student.toString());
         } catch (NoExistStudentException e) {
-            System.out.println("\u001B[31m"+ e.getMessage()+ "\u001B[0m");
+            System.out.println("\u001B[31m" + e.getMessage() + "\u001B[0m");
         }
         System.out.println("--------------------с клавиатуры добавим студента----------------------------");
         AddStudentYourselfKeyboard keyboard = new AddStudentYourselfKeyboard(group);
-        /*String [] data =*/ keyboard.addNewStudent();
-        /*try {
-            student = keyboard.getGroup().find(data[0]);
-            System.out.println( student.getName());
-            System.out.println(student.getCalendarBirth());
-            System.out.println(student.toString());
-        } catch (NoExistStudentException e) {
-            System.out.println("\u001B[31m"+ e.getMessage()+ "\u001B[0m");
-        }*/
-
-
+        keyboard.addNewStudent();
 
         System.out.println("--------------------отсортируем группу----------------------------");
-        Student[] listStudent=group.sortStudentsByLastName();
+        Student[] listStudent = group.sortStudentsByLastName();
         for (int i = 0; i < listStudent.length; i++) {
-            if(listStudent[i]!=null){
+            if (listStudent[i] != null) {
                 System.out.println(listStudent[i]);
-            }else {
+            } else {
                 System.out.println("vacant ");
             }
         }
@@ -101,7 +89,5 @@ public class MyClass {
         System.out.println(csvStudent);
         Student fromCSVstudent = new Student().fromCSVString(csvStudent);
         System.out.println(fromCSVstudent);
-
-
     }
 }
