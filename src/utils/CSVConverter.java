@@ -3,6 +3,6 @@ package utils;
 import people.Student;
 
 public interface CSVConverter {
-    String toCSVString();
+    String toCSVString(Student student);
     Student fromCSVString(String str);
 }

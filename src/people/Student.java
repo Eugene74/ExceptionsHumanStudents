@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 
-public class Student extends Human implements CSVConverter {
+public class Student extends Human  {
 
     public Student(String name, String surname, int year, int month, int birthday) {
         calendarBirth = Calendar.getInstance();
@@ -67,21 +67,5 @@ public class Student extends Human implements CSVConverter {
         SimpleDateFormat format1 = new SimpleDateFormat("dd MM yyyy", Locale.getDefault());
         String formatted = format1.format(this.calendarBirth.getTime());
         return formatted;
-    }
-
-
-    @Override
-    public String toCSVString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(this.name).append(";").append(this.surname).append(";").append(this.getCalendarBirthCSV());
-        return stringBuilder.toString();
-    }
-
-    @Override
-    public Student fromCSVString(String str) {
-        String[] csvArr = str.split(";");
-        String[] dataBirth = csvArr[2].split(" ");
-        Student student = new Student(csvArr[0], csvArr[1], Integer.parseInt(dataBirth[2]), Integer.parseInt(dataBirth[1]), Integer.parseInt(dataBirth[0]));
-        return student;
     }
 }

@@ -27,7 +27,8 @@ public interface CSVConverter{
 public String toCSVString();
 public Student fromCSVString (String str);
 }
-Класс Студент должен реализовывать этот интерфейс. Логика реализации следующая — на
+//todo Класс Студент должен реализовывать этот интерфейс. ( так у меня и бло, но Ваня сказал, что так нельзя - я переделал)
+Логика реализации следующая — на
 основе Студента создать строку с его CSV представлением и наоборот на основе этой строки
 создать Студента.
 * */
@@ -36,6 +37,7 @@ import myexception.GroupLimitException;
 import myexception.NoExistStudentException;
 import people.Student;
 import utils.AddStudentYourselfKeyboard;
+import utils.MyCSVConvertor;
 import utils.StudentsGroup;
 
 public class MyClass {
@@ -77,17 +79,18 @@ public class MyClass {
 
         System.out.println("--------------------отсортируем группу----------------------------");
         Student[] listStudent = group.sortStudentsByLastName();
-        for (int i = 0; i < listStudent.length; i++) {
-            if (listStudent[i] != null) {
-                System.out.println(listStudent[i]);
+        for (Student value : listStudent) {
+            if (value != null) {
+                System.out.println(value);
             } else {
                 System.out.println("vacant ");
             }
         }
         System.out.println("---------------------загоним студента в CSV и достанем его из этого файла----------");
-        String csvStudent = student.toCSVString();
+        MyCSVConvertor myCSVConvertor = new MyCSVConvertor();
+        String csvStudent = myCSVConvertor.toCSVString(student);  // student.toCSVString();
         System.out.println(csvStudent);
-        Student fromCSVstudent = new Student().fromCSVString(csvStudent);
+        Student fromCSVstudent = myCSVConvertor.fromCSVString(csvStudent); //.fromCSVString(csvStudent);
         System.out.println(fromCSVstudent);
     }
 }
